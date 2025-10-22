@@ -20,7 +20,7 @@ namespace ClientForms
 
         private void Send_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void ChatForm_FormClosing(object? sender, FormClosingEventArgs e)

@@ -33,6 +33,7 @@
             sendBtn = new Button();
             textBoxIp = new TextBox();
             textBoxPort = new TextBox();
+            Connect = new Button();
             SuspendLayout();
             // 
             // listBox1
@@ -67,22 +68,32 @@
             textBoxIp.Location = new Point(12, 12);
             textBoxIp.Name = "textBoxIp";
             textBoxIp.PlaceholderText = "ip adress";
-            textBoxIp.Size = new Size(152, 23);
+            textBoxIp.Size = new Size(113, 23);
             textBoxIp.TabIndex = 3;
             // 
             // textBoxPort
             // 
-            textBoxPort.Location = new Point(170, 12);
+            textBoxPort.Location = new Point(131, 12);
             textBoxPort.Name = "textBoxPort";
             textBoxPort.PlaceholderText = "port";
-            textBoxPort.Size = new Size(162, 23);
+            textBoxPort.Size = new Size(102, 23);
             textBoxPort.TabIndex = 4;
+            // 
+            // Connect
+            // 
+            Connect.Location = new Point(239, 13);
+            Connect.Name = "Connect";
+            Connect.Size = new Size(93, 23);
+            Connect.TabIndex = 5;
+            Connect.Text = "connectBtn";
+            Connect.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(344, 422);
+            Controls.Add(Connect);
             Controls.Add(textBoxPort);
             Controls.Add(textBoxIp);
             Controls.Add(sendBtn);
@@ -102,5 +113,6 @@
         private Button sendBtn;
         private TextBox textBoxIp;
         private TextBox textBoxPort;
+        private Button Connect;
     }
 }
