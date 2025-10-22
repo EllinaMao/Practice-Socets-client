@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Text;
 namespace Practice_Socets_client
 {
     /*Разработайте два консольных приложения, использующих сокеты. Одно приложение — сервер, второе — клиент. Клиентское приложение посылает приветствие серверу. Сервер отвечает. И клиент, и сервер отображают полученное сообщение. Пример вывода:*/
-    internal class Client
+    public class Client
     {
         Socket Sock;
         public event Action<string>? Reseive;
@@ -40,14 +39,11 @@ namespace Practice_Socets_client
             Sock?.Close();
 
         }
-        public void Connect(string ip = "127.0 0.1", int port = 49152)
+        public void Connect(string ip = "127.0.0.1", int port = 4000)
         {
             try
             {
-
                 IPAddress ipAdress = IPAddress.Parse(ip);
-                //IPAddress ipAdress = IPAddress.Parse(ip);
-
                 IPEndPoint ipEndPoint = new IPEndPoint(ipAdress /* IP-адрес */, port /* порт */);
 
                 Sock = new Socket(AddressFamily.InterNetwork /*схема адресации*/, SocketType.Stream /*тип сокета*/, ProtocolType.Tcp /*протокол*/);
@@ -56,7 +52,6 @@ namespace Practice_Socets_client
                 int bytesSent = Sock.Send(msg); // отправляем серверу сообщение через сокет
                 Log("Клиент " + Dns.GetHostName() + " установил соединение с " + Sock.RemoteEndPoint?.ToString());
 
-                ///
                 Thread receiveThread = new Thread(Recieve);
                 receiveThread.IsBackground = true;
                 receiveThread.Start();
@@ -70,17 +65,16 @@ namespace Practice_Socets_client
 
         }
 
-        public void Send(object msg_)
+        public void Send(string msg_)
         {
             try
             {
                 if (Sock == null) { return; }
-                string messenge = msg_.ToString()!;
-                byte[] msg = Encoding.Default.GetBytes(messenge!);
+                byte[] msg = Encoding.Default.GetBytes(msg_!);
                 //Thread.Sleep(1000);
 
                 int bytesSent = Sock.Send(msg); // отправляем серверу сообщение через сокет
-                if (messenge.IndexOf("<end>") > -1) // если клиент отправил эту команду, то принимаем сообщение от сервера
+                if (msg_.IndexOf("<Bye>") > -1) // если клиент отправил эту команду, то принимаем сообщение от сервера
                 {
                     byte[] bytes = new byte[1024];
                     int bytesRec = Sock.Receive(bytes); // принимаем данные, переданные сервером. Если данных нет, поток блокируется
@@ -93,10 +87,6 @@ namespace Practice_Socets_client
             {
                 Log(ex.ToString());
             }
-            //finally
-            //{
-            //    CloseSock();
-            //}
         }
 
         public void Recieve()
@@ -106,14 +96,6 @@ namespace Practice_Socets_client
                 //string client = null;
                 string data = null;
                 byte[] bytes = new byte[1024];// max amount to transfer data buffer
-
-                /*
-                 * // Получим от клиента DNS-имя хоста.
-                // Метод Receive получает данные от сокета и заполняет массив байтов, переданный в качестве аргумента
-                //int bytesRec = sock.Receive(bytes); // Возвращает фактически считанное число байтов
-                //client = Encoding.Default.GetString(bytes, 0, bytesRec); // конвертируем массив байтов в строку
-                ///client += "(" + handler.RemoteEndPoint.ToString() + ")";////Возвращает удаленную конечную точку.
-                //sock.ReceiveTimeout=5000;*/
                 while (true)
                 {
                     int bytesRec = Sock.Receive(bytes);

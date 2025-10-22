@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Practice Socets client\Practice Socets client.csproj" />
+  </ItemGroup>
+
 </Project>

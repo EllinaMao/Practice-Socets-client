@@ -30,16 +30,18 @@
         {
             listBox1 = new ListBox();
             richTextBox1 = new RichTextBox();
-            button1 = new Button();
+            sendBtn = new Button();
+            textBoxIp = new TextBox();
+            textBoxPort = new TextBox();
             SuspendLayout();
             // 
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(12, 12);
+            listBox1.Location = new Point(12, 42);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(320, 289);
+            listBox1.Size = new Size(320, 259);
             listBox1.TabIndex = 0;
             // 
             // richTextBox1
@@ -50,32 +52,55 @@
             richTextBox1.TabIndex = 1;
             richTextBox1.Text = "";
             // 
-            // button1
+            // sendBtn
             // 
-            button1.Location = new Point(12, 387);
-            button1.Name = "button1";
-            button1.Size = new Size(320, 23);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            sendBtn.Location = new Point(12, 387);
+            sendBtn.Name = "sendBtn";
+            sendBtn.Size = new Size(320, 23);
+            sendBtn.TabIndex = 2;
+            sendBtn.Text = "Send";
+            sendBtn.UseVisualStyleBackColor = true;
+            sendBtn.Click += Send_Click;
+            // 
+            // textBoxIp
+            // 
+            textBoxIp.Location = new Point(12, 12);
+            textBoxIp.Name = "textBoxIp";
+            textBoxIp.PlaceholderText = "ip adress";
+            textBoxIp.Size = new Size(152, 23);
+            textBoxIp.TabIndex = 3;
+            // 
+            // textBoxPort
+            // 
+            textBoxPort.Location = new Point(170, 12);
+            textBoxPort.Name = "textBoxPort";
+            textBoxPort.PlaceholderText = "port";
+            textBoxPort.Size = new Size(162, 23);
+            textBoxPort.TabIndex = 4;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(344, 422);
-            Controls.Add(button1);
+            Controls.Add(textBoxPort);
+            Controls.Add(textBoxIp);
+            Controls.Add(sendBtn);
             Controls.Add(richTextBox1);
             Controls.Add(listBox1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private ListBox listBox1;
         private RichTextBox richTextBox1;
-        private Button button1;
+        private Button sendBtn;
+        private TextBox textBoxIp;
+        private TextBox textBoxPort;
     }
 }

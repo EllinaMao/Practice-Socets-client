@@ -16,5 +16,22 @@ namespace ClientForms
         {
             InitializeComponent();
         }
+
+        private void humanBth_Click(object sender, EventArgs e)
+        {
+            OpenChatForm(false);
+        }
+
+        private void botBtn_Click(object sender, EventArgs e)
+        {
+            OpenChatForm(true);
+        }
+
+        private void OpenChatForm(bool isBot)
+        {
+            Form1 chatWindow = new Form1(isBot);
+            chatWindow.Show();
+            this.Hide();
+        }
     }
 }

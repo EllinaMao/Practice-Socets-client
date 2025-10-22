@@ -40,6 +40,7 @@
             humanBth.TabIndex = 0;
             humanBth.Text = "Im a Human";
             humanBth.UseVisualStyleBackColor = true;
+            humanBth.Click += humanBth_Click;
             // 
             // botBtn
             // 
@@ -49,6 +50,7 @@
             botBtn.TabIndex = 1;
             botBtn.Text = "Im a Bot";
             botBtn.UseVisualStyleBackColor = true;
+            botBtn.Click += botBtn_Click;
             // 
             // Foem
             // 
