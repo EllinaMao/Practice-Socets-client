@@ -33,11 +33,13 @@
             sendBtn = new Button();
             textBoxIp = new TextBox();
             textBoxPort = new TextBox();
+            Connect = new Button();
             SuspendLayout();
             // 
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
+            listBox1.HorizontalScrollbar = true;
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(12, 42);
             listBox1.Name = "listBox1";
@@ -46,7 +48,7 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(12, 315);
+            richTextBox1.Location = new Point(12, 306);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(320, 61);
             richTextBox1.TabIndex = 1;
@@ -54,9 +56,10 @@
             // 
             // sendBtn
             // 
-            sendBtn.Location = new Point(12, 387);
+            sendBtn.Location = new Point(12, 371);
+            sendBtn.Margin = new Padding(3, 2, 3, 2);
             sendBtn.Name = "sendBtn";
-            sendBtn.Size = new Size(320, 23);
+            sendBtn.Size = new Size(319, 26);
             sendBtn.TabIndex = 2;
             sendBtn.Text = "Send";
             sendBtn.UseVisualStyleBackColor = true;
@@ -66,23 +69,36 @@
             // 
             textBoxIp.Location = new Point(12, 12);
             textBoxIp.Name = "textBoxIp";
-            textBoxIp.PlaceholderText = "ip adress";
-            textBoxIp.Size = new Size(152, 23);
+            textBoxIp.PlaceholderText = "ip aka 127.0.0.1";
+            textBoxIp.Size = new Size(118, 23);
             textBoxIp.TabIndex = 3;
             // 
             // textBoxPort
             // 
-            textBoxPort.Location = new Point(170, 12);
+            textBoxPort.Location = new Point(135, 12);
+            textBoxPort.Margin = new Padding(3, 2, 3, 2);
             textBoxPort.Name = "textBoxPort";
-            textBoxPort.PlaceholderText = "port";
-            textBoxPort.Size = new Size(162, 23);
+            textBoxPort.PlaceholderText = "port aka 4000";
+            textBoxPort.Size = new Size(97, 23);
             textBoxPort.TabIndex = 4;
+            // 
+            // Connect
+            // 
+            Connect.Location = new Point(236, 12);
+            Connect.Margin = new Padding(3, 2, 3, 2);
+            Connect.Name = "Connect";
+            Connect.Size = new Size(95, 22);
+            Connect.TabIndex = 5;
+            Connect.Text = "connectBtn";
+            Connect.UseVisualStyleBackColor = true;
+            Connect.Click += Connect_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(344, 422);
+            ClientSize = new Size(344, 413);
+            Controls.Add(Connect);
             Controls.Add(textBoxPort);
             Controls.Add(textBoxIp);
             Controls.Add(sendBtn);
@@ -102,5 +118,6 @@
         private Button sendBtn;
         private TextBox textBoxIp;
         private TextBox textBoxPort;
+        private Button Connect;
     }
 }

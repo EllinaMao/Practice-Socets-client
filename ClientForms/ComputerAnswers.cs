@@ -20,7 +20,9 @@ namespace BotAnswers
             "Understandable, have a nice day",
             "One, two, three",
             "I love Japanice music",
-            "Sorry im a dumb-dumb~"
+            "Sorry im a dumb-dumb~",
+            "<Bye>"
+
         };
         public static string GetRandomAnswer()
         {

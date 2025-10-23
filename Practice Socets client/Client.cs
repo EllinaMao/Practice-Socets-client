@@ -11,6 +11,8 @@ namespace Practice_Socets_client
     {
         Socket Sock;
         public event Action<string>? Reseive;
+        public event Action<string>? ClientLogMessage;
+        public readonly string StopWord = "<Bye>";
 
         private SynchronizationContext _uiContext = null;//winforms
 
@@ -18,12 +20,19 @@ namespace Practice_Socets_client
         {
             _uiContext = uiContext ?? new SynchronizationContext();
         }
-        private void Log(string msg)
+        private void Message(string msg)
         {
             if (_uiContext != null)
                 _uiContext.Post(d => Reseive?.Invoke(msg), null);
             else
                 Reseive?.Invoke(msg);
+        }
+        private void Log(string msg)
+        {
+            if (_uiContext != null)
+                _uiContext.Post(d => ClientLogMessage?.Invoke(msg), null);
+            else
+                ClientLogMessage?.Invoke(msg);
         }
 
         public void CloseSock()
@@ -48,7 +57,7 @@ namespace Practice_Socets_client
 
                 Sock = new Socket(AddressFamily.InterNetwork /*схема адресации*/, SocketType.Stream /*тип сокета*/, ProtocolType.Tcp /*протокол*/);
                 Sock.Connect(ipEndPoint);
-                byte[] msg = Encoding.Default.GetBytes(Dns.GetHostName() /* имя узла локального компьютера */);// конвертируем строку, содержащую имя хоста, в массив байтов
+                byte[] msg = Encoding.UTF8.GetBytes(Dns.GetHostName() /* имя узла локального компьютера */);// конвертируем строку, содержащую имя хоста, в массив байтов
                 int bytesSent = Sock.Send(msg); // отправляем серверу сообщение через сокет
                 Log("Клиент " + Dns.GetHostName() + " установил соединение с " + Sock.RemoteEndPoint?.ToString());
 
@@ -69,19 +78,12 @@ namespace Practice_Socets_client
         {
             try
             {
-                if (Sock == null) { return; }
-                byte[] msg = Encoding.Default.GetBytes(msg_!);
-                //Thread.Sleep(1000);
-
+                if (Sock == null || !Sock.Connected) { return; }
+                byte[] msg = Encoding.UTF8.GetBytes(msg_!);
                 int bytesSent = Sock.Send(msg); // отправляем серверу сообщение через сокет
-                if (msg_.IndexOf("<Bye>") > -1) // если клиент отправил эту команду, то принимаем сообщение от сервера
-                {
-                    byte[] bytes = new byte[1024];
-                    int bytesRec = Sock.Receive(bytes); // принимаем данные, переданные сервером. Если данных нет, поток блокируется
-                    Log("Сервер (" + Sock.RemoteEndPoint.ToString() + ") ответил: " + Encoding.Default.GetString(bytes, 0, bytesRec) /*конвертируем массив байтов в строку*/);
+                //Log(bytesSent.ToString());
+               
 
-                }
-                Log(bytesSent.ToString());
             }
             catch (Exception ex)
             {
@@ -93,7 +95,6 @@ namespace Practice_Socets_client
         {
             try
             {
-                //string client = null;
                 string data = null;
                 byte[] bytes = new byte[1024];// max amount to transfer data buffer
                 while (true)
@@ -105,14 +106,18 @@ namespace Practice_Socets_client
                         //sock.Close();
                         break;
                     }
-                    data = Encoding.Default.GetString(bytes, 0, bytesRec); // конвертируем массив байтов в строку     
-                    Log(data);
-                    Log("Сервер ответил " + data);
+                   
+                    data = Encoding.UTF8.GetString(bytes, 0, bytesRec); // конвертируем массив байтов в строку
+                    Message(data);
+                    if (data.IndexOf(StopWord) > -1)
+                    {
+                        break;
+                    }
                 }
             }
-            catch (SocketException)
+            catch (SocketException ex)
             {
-                //nothing all in fin
+                Log(ex.Message.ToString());
             }
             catch (Exception ex)
             {
