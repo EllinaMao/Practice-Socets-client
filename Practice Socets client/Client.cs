@@ -11,7 +11,8 @@ namespace Practice_Socets_client
     {
         Socket Sock;
         public event Action<string>? Reseive;
-        public string StopWord = "<Bye>";
+        public event Action<string>? ClientLogMessage;
+        public readonly string StopWord = "<Bye>";
 
         private SynchronizationContext _uiContext = null;//winforms
 
@@ -19,12 +20,19 @@ namespace Practice_Socets_client
         {
             _uiContext = uiContext ?? new SynchronizationContext();
         }
-        private void Log(string msg)
+        private void Message(string msg)
         {
             if (_uiContext != null)
                 _uiContext.Post(d => Reseive?.Invoke(msg), null);
             else
                 Reseive?.Invoke(msg);
+        }
+        private void Log(string msg)
+        {
+            if (_uiContext != null)
+                _uiContext.Post(d => ClientLogMessage?.Invoke(msg), null);
+            else
+                ClientLogMessage?.Invoke(msg);
         }
 
         public void CloseSock()
@@ -74,6 +82,7 @@ namespace Practice_Socets_client
                 byte[] msg = Encoding.UTF8.GetBytes(msg_!);
                 int bytesSent = Sock.Send(msg); // отправляем серверу сообщение через сокет
                 //Log(bytesSent.ToString());
+               
 
             }
             catch (Exception ex)
@@ -99,16 +108,16 @@ namespace Practice_Socets_client
                     }
                    
                     data = Encoding.UTF8.GetString(bytes, 0, bytesRec); // конвертируем массив байтов в строку
+                    Message(data);
                     if (data.IndexOf(StopWord) > -1)
                     {
                         break;
                     }
-                    Log(data);
                 }
             }
-            catch (SocketException)
+            catch (SocketException ex)
             {
-                //nothing all in fin
+                Log(ex.Message.ToString());
             }
             catch (Exception ex)
             {

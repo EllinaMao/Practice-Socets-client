@@ -83,7 +83,8 @@ namespace ClientForms
                 }
                 string ip = textBoxIp.Text.Trim();
                 client = new Client(_uiContext!);
-                client.Reseive += ReseveMessage; 
+                client.ClientLogMessage += Client_OnLogMessage;
+                client.Reseive += Client_OnReceiveMessage;  
                 client.Connect(ip, port);
                 Connect.Enabled = false;
                 textBoxIp.Enabled = false;
@@ -93,20 +94,31 @@ namespace ClientForms
                     richTextBox1.Enabled = true;
                     sendBtn.Enabled = true;//we conected
                 }
-                LogMessage("Connected to server!"); 
-
+                LogMessage("Connected to server!");
+                if (IsBot)
+                {
+                    string helloMsg = "Hi, im client bot!";
+                    client.Send(helloMsg);
+                    LogMessage($"Bot: {helloMsg}");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error while connecting: " + ex.Message);
             }
         }
-
-        private void ReseveMessage(string msg)
+        private void Client_OnLogMessage(string message)
+        {
+            LogMessage(message);
+        }
+        private void Client_OnReceiveMessage(string msg)
         {
             LogMessage($"Server: {msg}");
             if (msg.IndexOf(client?.StopWord) > -1)
             {
+                LogMessage("Server disconnected. Chat ended.");
+                richTextBox1.Enabled = false;
+                sendBtn.Enabled = false;
                 return;
             }
 
