@@ -39,6 +39,7 @@
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
+            listBox1.HorizontalScrollbar = true;
             listBox1.Location = new Point(14, 56);
             listBox1.Margin = new Padding(3, 4, 3, 4);
             listBox1.Name = "listBox1";
@@ -47,7 +48,7 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(14, 420);
+            richTextBox1.Location = new Point(14, 408);
             richTextBox1.Margin = new Padding(3, 4, 3, 4);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(365, 80);
@@ -56,9 +57,9 @@
             // 
             // sendBtn
             // 
-            sendBtn.Location = new Point(12, 387);
+            sendBtn.Location = new Point(14, 495);
             sendBtn.Name = "sendBtn";
-            sendBtn.Size = new Size(320, 23);
+            sendBtn.Size = new Size(365, 35);
             sendBtn.TabIndex = 2;
             sendBtn.Text = "Send";
             sendBtn.UseVisualStyleBackColor = true;
@@ -70,31 +71,32 @@
             textBoxIp.Margin = new Padding(3, 4, 3, 4);
             textBoxIp.Name = "textBoxIp";
             textBoxIp.PlaceholderText = "ip adress";
-            textBoxIp.Size = new Size(113, 23);
+            textBoxIp.Size = new Size(134, 27);
             textBoxIp.TabIndex = 3;
             // 
             // textBoxPort
             // 
-            textBoxPort.Location = new Point(131, 12);
+            textBoxPort.Location = new Point(154, 16);
             textBoxPort.Name = "textBoxPort";
             textBoxPort.PlaceholderText = "port";
-            textBoxPort.Size = new Size(102, 23);
+            textBoxPort.Size = new Size(110, 27);
             textBoxPort.TabIndex = 4;
             // 
             // Connect
             // 
-            Connect.Location = new Point(239, 13);
+            Connect.Location = new Point(270, 16);
             Connect.Name = "Connect";
-            Connect.Size = new Size(93, 23);
+            Connect.Size = new Size(109, 29);
             Connect.TabIndex = 5;
             Connect.Text = "connectBtn";
             Connect.UseVisualStyleBackColor = true;
+            Connect.Click += Connect_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(344, 422);
+            ClientSize = new Size(393, 551);
             Controls.Add(Connect);
             Controls.Add(textBoxPort);
             Controls.Add(textBoxIp);

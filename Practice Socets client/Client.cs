@@ -11,6 +11,7 @@ namespace Practice_Socets_client
     {
         Socket Sock;
         public event Action<string>? Reseive;
+        public string StopWord = "<Bye>";
 
         private SynchronizationContext _uiContext = null;//winforms
 
@@ -98,7 +99,7 @@ namespace Practice_Socets_client
                     }
                    
                     data = Encoding.UTF8.GetString(bytes, 0, bytesRec); // конвертируем массив байтов в строку
-                    if (data.IndexOf("<Bye>") > -1)
+                    if (data.IndexOf(StopWord) > -1)
                     {
                         break;
                     }
