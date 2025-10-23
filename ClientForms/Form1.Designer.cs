@@ -39,17 +39,18 @@
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(12, 42);
+            listBox1.Location = new Point(14, 56);
+            listBox1.Margin = new Padding(3, 4, 3, 4);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(320, 259);
+            listBox1.Size = new Size(365, 344);
             listBox1.TabIndex = 0;
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(12, 315);
+            richTextBox1.Location = new Point(14, 420);
+            richTextBox1.Margin = new Padding(3, 4, 3, 4);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(320, 61);
+            richTextBox1.Size = new Size(365, 80);
             richTextBox1.TabIndex = 1;
             richTextBox1.Text = "";
             // 
@@ -65,7 +66,8 @@
             // 
             // textBoxIp
             // 
-            textBoxIp.Location = new Point(12, 12);
+            textBoxIp.Location = new Point(14, 16);
+            textBoxIp.Margin = new Padding(3, 4, 3, 4);
             textBoxIp.Name = "textBoxIp";
             textBoxIp.PlaceholderText = "ip adress";
             textBoxIp.Size = new Size(113, 23);
@@ -90,7 +92,7 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(344, 422);
             Controls.Add(Connect);
@@ -99,6 +101,7 @@
             Controls.Add(sendBtn);
             Controls.Add(richTextBox1);
             Controls.Add(listBox1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
